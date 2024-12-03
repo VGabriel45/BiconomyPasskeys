@@ -45,7 +45,6 @@ export default function Passkey() {
           // @ts-ignore
           signer: walletClient,
           chain: baseSepolia,
-          index: BigInt(8),
           paymaster: createBicoPaymasterClient({
             paymasterUrl: process.env.NEXT_PUBLIC_PAYMASTER_URL || "",
           }),
@@ -193,7 +192,6 @@ export default function Passkey() {
         // @ts-ignore
         signer: walletClient,
         chain: baseSepolia,
-        index: BigInt(8),
         paymaster: createBicoPaymasterClient({
           paymasterUrl: process.env.NEXT_PUBLIC_PAYMASTER_URL || "",
         }),
@@ -235,7 +233,6 @@ export default function Passkey() {
         // @ts-ignore
         signer: walletClient,
         chain: baseSepolia,
-        index: BigInt(8),
         paymaster: createBicoPaymasterClient({
           paymasterUrl: process.env.NEXT_PUBLIC_PAYMASTER_URL || "",
         }),
