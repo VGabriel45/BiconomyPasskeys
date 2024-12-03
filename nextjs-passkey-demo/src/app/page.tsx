@@ -189,7 +189,19 @@ export default function Passkey() {
   const uninstallPasskeyValidator = async () => {
     setIsLoading(prev => ({ ...prev, uninstall: true }));
     try {
-      const userOpHash = await nexusClient?.uninstallModule({
+      const nexusClientWithPasskeyValidator = await createNexusClient({
+        // @ts-ignore
+        signer: walletClient,
+        chain: baseSepolia,
+        index: BigInt(8),
+        paymaster: createBicoPaymasterClient({
+          paymasterUrl: process.env.NEXT_PUBLIC_PAYMASTER_URL || "",
+        }),
+        transport: http(),
+        module: passkeyValidator,
+        bundlerTransport: http(bundlerUrl),
+      });
+      const userOpHash = await nexusClientWithPasskeyValidator?.uninstallModule({
         module: {
           address: PASSKEY_VALIDATOR_ADDRESS,
           type: "validator",
@@ -219,7 +231,6 @@ export default function Passkey() {
     setIsLoading(prev => ({ ...prev, sendOp: true }));
     try {
       let nexusClientWithPasskeyValidator: NexusClient;
-      const cachedWebAuthnKey = localStorage.getItem('webAuthnKey');
       nexusClientWithPasskeyValidator = await createNexusClient({
         // @ts-ignore
         signer: walletClient,
